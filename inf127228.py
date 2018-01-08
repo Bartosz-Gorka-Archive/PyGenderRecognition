@@ -21,10 +21,14 @@ def main():
         # Reduce data to first half
         fft_half = fft_signal[1 : int(len(fft_signal) / 2)]
 
+        # ABS
+        fft_abs = fft_half.copy()
+        fft_abs = abs(fft_abs) * 2 / len(signal)
+
         # Show plot
-        plt.plot(fft_half)
+        plt.plot(fft_abs)
         plt.show()
-        print(fft_half)
+        
     else:
         print('>> LOOSER << You mast set filename as parameter')
 
