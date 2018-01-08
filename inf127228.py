@@ -2,6 +2,7 @@ import sys                          # Fetch argv from system
 import soundfile                    # Read sound file
 from scipy import fft               # FFT
 import matplotlib.pyplot as plt     # Plot
+from scipy.signal import decimate   # Decimate - FFT signal
 
 
 def main():
@@ -28,7 +29,35 @@ def main():
         # Show plot
         plt.plot(fft_abs)
         plt.show()
+
+        # Prepare decimate from fft signal
+        decimate_2 = fft_abs.copy()
+        decimate_2 = decimate(decimate_2, 2, n = 5)
+
+        plt.plot(decimate_2)
+        plt.show()
+
+        decimate_3 = fft_abs.copy()
+        decimate_3 = decimate(decimate_3, 3, n = 5)
+
+        plt.plot(decimate_3)
+        plt.show()
+
+        decimate_4 = fft_abs.copy()
+        decimate_4 = decimate(decimate_4, 4, n = 5)
+
+        plt.plot(decimate_4)
+        plt.show()
+
+        decimate_5 = fft_abs.copy()
+        decimate_5 = decimate(decimate_5, 5, n = 5)
+
+        plt.plot(decimate_5)
+        plt.show()
+
+        # Merge results
         
+
     else:
         print('>> LOOSER << You mast set filename as parameter')
 
