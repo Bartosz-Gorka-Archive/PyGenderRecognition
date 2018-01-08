@@ -1,5 +1,6 @@
-import sys          # Fetch argv from system
-import soundfile    # Read sound file
+import sys              # Fetch argv from system
+import soundfile        # Read sound file
+from scipy import fft   # FFT
 
 
 def main():
@@ -12,7 +13,11 @@ def main():
         if len(signal.shape) == 2:
             signal = [s[0] for s in signal]
 
-        print(signal)
+        # FFT
+        fft_signal = signal.copy()
+        fft_signal = fft(fft_signal)
+
+        print(fft_signal)
     else:
         print('>> LOOSER << You mast set filename as parameter')
 
