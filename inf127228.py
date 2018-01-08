@@ -55,8 +55,14 @@ def main():
         plt.plot(decimate_5)
         plt.show()
 
+        # Calculate length of shortest decimate result
+        decimate_len = len(decimate_5)
+
         # Merge results
-        
+        result = fft_abs[:decimate_len] * decimate_2[:decimate_len] * decimate_3[:decimate_len] * decimate_4[:decimate_len] * decimate_5[:decimate_len]
+
+        plt.plot(result)
+        plt.show()
 
     else:
         print('>> LOOSER << You mast set filename as parameter')
