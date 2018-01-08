@@ -1,6 +1,7 @@
-import sys              # Fetch argv from system
-import soundfile        # Read sound file
-from scipy import fft   # FFT
+import sys                          # Fetch argv from system
+import soundfile                    # Read sound file
+from scipy import fft               # FFT
+import matplotlib.pyplot as plt     # Plot
 
 
 def main():
@@ -17,7 +18,13 @@ def main():
         fft_signal = signal.copy()
         fft_signal = fft(fft_signal)
 
-        print(fft_signal)
+        # Reduce data to first half
+        fft_half = fft_signal[1 : int(len(fft_signal) / 2)]
+
+        # Show plot
+        plt.plot(fft_half)
+        plt.show()
+        print(fft_half)
     else:
         print('>> LOOSER << You mast set filename as parameter')
 
