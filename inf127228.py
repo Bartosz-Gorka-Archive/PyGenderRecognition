@@ -7,6 +7,8 @@ from scipy.fftpack import fftfreq       # FFT frequences
 
 
 def main():
+    thresh = 700
+
     # Check filename in argv
     if len(sys.argv) > 1:
         # Read file
@@ -27,43 +29,39 @@ def main():
         fft_abs = fft_half.copy()
         fft_abs = abs(fft_abs) * 2 / len(signal)
 
-        # Show plot
-        plt.plot(fft_abs)
-        plt.show()
-
         # Prepare decimate from fft signal
         decimate_2 = fft_abs.copy()
-        decimate_2 = decimate(decimate_2, 2, n = 5)
+        decimate_2 = decimate(decimate_2, 2, n = 8)
 
         decimate_3 = fft_abs.copy()
-        decimate_3 = decimate(decimate_3, 3, n = 5)
+        decimate_3 = decimate(decimate_3, 3, n = 8)
 
         decimate_4 = fft_abs.copy()
-        decimate_4 = decimate(decimate_4, 4, n = 5)
+        decimate_4 = decimate(decimate_4, 4, n = 8)
 
         decimate_5 = fft_abs.copy()
-        decimate_5 = decimate(decimate_5, 5, n = 5)
+        decimate_5 = decimate(decimate_5, 5, n = 8)
 
         # Calculate length of shortest decimate result
         decimate_len = len(decimate_5)
 
         # Merge results
-        result = decimate_2[:decimate_len] * decimate_3[:decimate_len] * decimate_4[:decimate_len] * decimate_5[:decimate_len]
+        result = fft_abs[:decimate_len] * decimate_2[:decimate_len] * decimate_3[:decimate_len] * decimate_4[:decimate_len] * decimate_5[:decimate_len]
 
         # Clear data
         result[0 : 100] = 0
 
-        # Count frequences
-        fft_freq = result.copy()
-        fft_freq = fft_freq[::50]
-        x_fft_freq = fft_freq.copy()
+        maxAmp = max(result)
+        check = 0
+        for i in range(len(result)):
+            if result[i] == maxAmp:
+                check = i
+                break
 
-        fft_freq_len = len(fft_freq)
-        fft_freq = fftfreq(fft_freq_len)
-        fft_freq = abs(fft_freq * sample_rate)
-
-        plt.stem(fft_freq, x_fft_freq, '--*')
-        plt.show()
+        if check > thresh:
+            print('F')
+        else:
+            print('M')
 
     else:
         print('>> LOOSER << You mast set filename as parameter')
