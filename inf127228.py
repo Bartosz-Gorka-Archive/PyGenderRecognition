@@ -1,10 +1,13 @@
 import sys                              # Fetch argv from system
+import warnings                         # Warnings
 import soundfile                        # Read sound file
 from scipy import fft                   # FFT
 import matplotlib.pyplot as plt         # Plot
 from scipy.signal import decimate       # Decimate - FFT signal
 from scipy.fftpack import fftfreq       # FFT frequences
 
+# Disable warnings in code
+warnings.filterwarnings("ignore")
 
 def main():
     thresh = 700
